@@ -14,27 +14,26 @@ var generatePassword = function() {
   var charType;
   var passwordString = "";
   
-  for(i = 0; i < passwordLength - 1; i++) {
-      while(!validCharType) {
-        charType = Math.floor(Math.random() * 4);
-        validCharType = characterCriteria[charType];
-      }
-      switch(charType) {
-        case 0:
-          passwordString = passwordString + generateRandomChar(97, 26);
-          break;
-        case 1:
-          passwordString = passwordString + generateRandomChar(65, 26);
-          break;
-        case 2:
-          passwordString = passwordString + generateRandomNum();
-          break;
-        case 3:
-          passwordString = passwordString + generateRandomChar(41, 16);
-          break;
-        default:
-          window.alert("Error, you went out of bounds. Fix the code.");
-      }
+  for(i = 0; i < passwordLength; i++) {
+    do {
+      charType = Math.floor(Math.random() * 4);
+      validCharType = characterCriteria[charType];
+    } while(!validCharType);
+    switch(charType) {
+      case 0:
+        passwordString = passwordString + generateRandomChar(97, 26);
+        break;
+      case 1:
+        passwordString = passwordString + generateRandomChar(65, 26);
+        break;
+      case 2:
+        passwordString = passwordString + generateRandomChar(48, 9);
+        break;
+      case 3:
+        passwordString = passwordString + generateRandomChar(33, 15);
+        break;
+      default:
+        window.alert("Error, you went out of bounds. Fix the code.");
     }
   }
 
@@ -46,13 +45,6 @@ var generateRandomChar = function(min, length) {
   var randomChar = String.fromCharCode(unicodeNumber);
 
   return randomChar;
-}
-
-var generateRandomNum = function() {
-  randomNum = Math.floor(Math.random * 10);
-  console.log;
-
-  return randomNum;
 }
 
 // Get references to the #generate element
