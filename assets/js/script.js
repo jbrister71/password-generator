@@ -1,3 +1,5 @@
+// This loop prevents the user from entering a non-number value or a number outside 8-128 in the length variable.
+// I imagine there's a way to prevent floats from being entered too, but my attempts caused the variable to permanently become a float.
 do {
   // Get password length
   var passwordLength = parseInt(window.prompt("How long should your password be? (8-128)"));
@@ -6,13 +8,28 @@ do {
   }
 } while(passwordLength < 8 || passwordLength > 128 || !Number.isInteger(passwordLength));
 
-// Get the characters to be used as booleans
-var characterCriteria = [
-  window.confirm("Use lowercase letters?"),
-  window.confirm("Use uppercase letters?"),
-  window.confirm("Use numeric characters?"),
-  window.confirm("Use special characters?")
-];
+// This loop makes sure the user selects at least one character type for their password.
+var typeSelected = false;
+do {
+  // Get the characters to be used as booleans
+  var characterCriteria = [
+    window.confirm("Use lowercase letters?"),
+    window.confirm("Use uppercase letters?"),
+    window.confirm("Use numeric characters?"),
+    window.confirm("Use special characters?")
+  ];
+  
+  // Check if any characters have been selected
+  for(i = 0; i < characterCriteria.length - 1; i++) {
+    if(characterCriteria[i] === true) {
+      typeSelected = true;
+      break;
+    }
+  }
+  if(typeSelected === false) {
+    window.alert("You need to select at least one character type.")
+  }
+} while (typeSelected === false);
 
 var generatePassword = function() {
   var validCharType = false;
@@ -41,7 +58,7 @@ var generatePassword = function() {
         passwordString = passwordString + generateRandomChar(33, 15);
         break;
       default:
-        window.alert("Error, you went out of bounds. Fix the code.");
+        window.alert("Out of bounds. Let the programmer know if this happens.");
     }
   }
 
