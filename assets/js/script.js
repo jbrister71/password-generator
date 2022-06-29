@@ -1,5 +1,10 @@
-// Get password length
-var passwordLength = window.prompt("How long should your password be?");
+do {
+  // Get password length
+  var passwordLength = parseInt(window.prompt("How long should your password be? (8-128)"));
+  if(passwordLength < 8 || passwordLength > 128 || !Number.isInteger(passwordLength)) {
+    window.alert("Your length needs to be a number between 8-128.");
+  }
+} while(passwordLength < 8 || passwordLength > 128 || !Number.isInteger(passwordLength));
 
 // Get the characters to be used as booleans
 var characterCriteria = [
@@ -15,6 +20,9 @@ var generatePassword = function() {
   var passwordString = "";
   
   for(i = 0; i < passwordLength; i++) {
+
+    // Generate a number that corresponds to one of the char types and if the user excluded that
+    // type, repeat until an included type is found.
     do {
       charType = Math.floor(Math.random() * 4);
       validCharType = characterCriteria[charType];
@@ -40,6 +48,8 @@ var generatePassword = function() {
   return passwordString;
 }
 
+// Generate a random unicode char that will appended to the password string.
+// Min is the minimum unicode id for that group of chars.
 var generateRandomChar = function(min, length) {
   var unicodeNumber = Math.floor((Math.random() * length) + min);
   var randomChar = String.fromCharCode(unicodeNumber);
