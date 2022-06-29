@@ -1,8 +1,8 @@
-// This loop prevents the user from entering a non-number value or a number outside 8-128 in the length variable.
-// I imagine there's a way to prevent floats from being entered too, but my attempts caused the variable to permanently become a float.
 var characterCriteria = [false, false, false, false];
 
 var getPasswordLength = function() {
+  // This loop prevents the user from entering a non-number value or a number outside 8-128 in the length variable.
+  // I imagine there's a way to prevent floats from being entered too, but my attempts caused the variable to permanently become a float.
   do {
     // Get password length
     var passwordLength = parseInt(window.prompt("How long should your password be? (8-128)"));
