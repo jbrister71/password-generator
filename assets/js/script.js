@@ -1,5 +1,7 @@
 // This loop prevents the user from entering a non-number value or a number outside 8-128 in the length variable.
 // I imagine there's a way to prevent floats from being entered too, but my attempts caused the variable to permanently become a float.
+var characterCriteria = [false, false, false, false];
+
 var getPasswordLength = function() {
   do {
     // Get password length
@@ -11,35 +13,37 @@ var getPasswordLength = function() {
 
   return passwordLength;
 }
+
+var getCharTypes = function() {
 // This loop makes sure the user selects at least one character type for their password.
-var typeSelected = false;
-do {
-  // Get the characters to be used as booleans
-  var characterCriteria = [
-    window.confirm("Use lowercase letters?"),
-    window.confirm("Use uppercase letters?"),
-    window.confirm("Use numeric characters?"),
-    window.confirm("Use special characters?")
-  ];
-  
-  // Check if any characters have been selected
-  for(i = 0; i < characterCriteria.length - 1; i++) {
-    if(characterCriteria[i] === true) {
-      typeSelected = true;
-      break;
+  var typeSelected = false;
+  do {
+    // Get the characters to be used as booleans
+    characterCriteria[0] = window.confirm("Use lowercase letters?");
+    characterCriteria[1] = window.confirm("Use uppercase letters?");
+    characterCriteria[2] = window.confirm("Use numeric characters?");
+    characterCriteria[3] = window.confirm("Use special characters?");
+      
+      
+    // Check if any characters have been selected
+    for(i = 0; i < characterCriteria.length; i++) {
+      if(characterCriteria[i] === true) {
+        typeSelected = true;
+        break;
+      }
     }
-  }
-  if(typeSelected === false) {
-    window.alert("You need to select at least one character type.")
-  }
-} while (typeSelected === false);
+    if(typeSelected === false) {
+      window.alert("You need to select at least one character type.")
+    }
+  } while (typeSelected === false);
+}
 
 var generatePassword = function() {
   var validCharType = false;
   var charType;
   var passwordString = "";
   var passwordLength = getPasswordLength();
-  // var 
+  getCharTypes();
   
   
   for(i = 0; i < passwordLength; i++) {
